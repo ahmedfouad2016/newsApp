@@ -1,0 +1,23 @@
+{
+    "plugins": [
+      [
+        "module-resolver",
+        {
+          "cwd": "babelrc",
+          "root": ["."],
+          "extensions": [".js", ".tsx"],
+          "alias": {
+            "Components": "./App/Components",
+            "Containers": "./App/Containers",
+            "Navigations": "./App/Navigations",
+            "Assets": "./App/Assets",
+            "Store": "./App/Store",
+            "Services": "./App/Services",
+            "Utils": "./App/Utils",
+            "Constants": "./App/Constants",
+          }
+        }
+      ]
+    ]
+  }
+  
