@@ -1,22 +1,30 @@
 import Constants from 'Config/Constants';
+import { IArticles, INews } from 'Containers/NewsContainer/News';
 import { api } from './api';
+import { ApiResponse as IApiResponse } from 'apisauce';
 
-const country = 'us';
-const apiKey = Constants.API_KEY;
-const pageSize = Constants.PAGE_SIZE;
+const country: string = 'us';
+const apiKey: string = Constants.API_KEY;
+const pageSize: number = Constants.PAGE_SIZE;
 
-const getTopHeadlines = async (page: number = 1) => {
+const getTopHeadlines = async (
+  page: number = 1,
+): Promise<INews<IArticles> | null> => {
   try {
-    const response = await api.get('top-headlines', {
-      country,
-      apiKey,
-      pageSize,
-      page,
-    });
+    const response: IApiResponse<INews<IArticles>> = await api.get(
+      'top-headlines',
+      {
+        country,
+        apiKey,
+        pageSize,
+        page,
+      },
+    );
     if (!response.ok) {
       return null;
     }
-    return response.data;
+    const { data = null } = response;
+    return data;
   } catch (error) {
     return null;
   }

@@ -1,16 +1,20 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import { Card } from 'react-native-paper';
 
 export interface INewsCardProps {
   title: string;
-  subTitle: string;
+  description: string;
   img: string;
 }
 
-export default function NewsCard({ img, title, subTitle }: INewsCardProps) {
+export default function NewsCard({
+  img,
+  title,
+  description,
+}: INewsCardProps): ReactElement {
   return (
     <Card>
-      <Card.Title title={title} subtitle={subTitle} />
+      <Card.Title title={title} subtitle={description} />
       <Card.Cover source={{ uri: img }} />
     </Card>
   );
