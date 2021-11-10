@@ -55,7 +55,7 @@ const setI18nConfig = (lang: string | null = null) => {
   i18n.translations = {
     ...translationGetters,
   };
-  i18n.locale = lang | languageTag;
+  i18n.locale = lang || languageTag;
 };
 
 const setLocal = (local: string) => {
