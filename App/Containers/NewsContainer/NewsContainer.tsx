@@ -20,7 +20,7 @@ export default function News(): ReactElement {
 
   const onRefresh = useCallback(async () => {
     setRefresh(true);
-    await dispatch(getTopHeadLinesAction(1));
+    await dispatch(getTopHeadLinesAction(1, true));
     setRefresh(false);
   }, [dispatch]);
 

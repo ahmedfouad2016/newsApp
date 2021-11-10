@@ -1,5 +1,6 @@
 import { getTopHeadlines } from 'Services';
 import { IArticles } from 'Containers/NewsContainer/News';
+import { Loading } from 'Utils/Loading';
 
 export const GET_TOP_HEADLINES: string = 'GET_TOP_HEADLINES';
 
@@ -25,12 +26,17 @@ export const addNews = (
   };
 };
 
-export const getTopHeadLinesAction = (page: number) => {
+export const getTopHeadLinesAction = (
+  page: number,
+  isRefresh: boolean = false,
+) => {
   return async (dispatch: (args: any) => IAction<IAddNewsAction>) => {
+    !isRefresh && Loading.show();
     const data = await getTopHeadlines(page);
     if (data) {
       const { articles, totalResults } = data;
       dispatch(addNews(articles, totalResults, page));
     }
+    !isRefresh && Loading.hide();
   };
 };
