@@ -15,7 +15,7 @@ export default function App(): ReactElement {
 
   useEffect(() => {
     init();
-    setTimeout(() => {
+    setTimeout(async () => {
       setLoading(loadingRef.current);
     }, 0);
   }, []);
