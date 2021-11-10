@@ -9,11 +9,13 @@ const pageSize: number = Constants.PAGE_SIZE;
 
 const getTopHeadlines = async (
   page: number = 1,
+  q: string = '',
 ): Promise<INews<IArticles> | null> => {
   try {
     const response: IApiResponse<INews<IArticles>> = await api.get(
       'top-headlines',
       {
+        q,
         country,
         apiKey,
         pageSize,

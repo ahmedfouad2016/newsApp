@@ -29,10 +29,11 @@ export const addNews = (
 export const getTopHeadLinesAction = (
   page: number,
   isRefresh: boolean = false,
+  q: string = '',
 ) => {
   return async (dispatch: (args: any) => IAction<IAddNewsAction>) => {
     !isRefresh && Loading.show();
-    const data = await getTopHeadlines(page);
+    const data = await getTopHeadlines(page, q);
     if (data) {
       const { articles, totalResults } = data;
       dispatch(addNews(articles, totalResults, page));

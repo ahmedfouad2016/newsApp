@@ -1,5 +1,6 @@
 import React, { ReactElement } from 'react';
 import { Card, Paragraph, Subheading } from 'react-native-paper';
+import styles from './NewsCard.style';
 
 export interface INewsCardProps {
   title: string;
@@ -18,7 +19,7 @@ export default function NewsCard({
   content = null,
 }: INewsCardProps): ReactElement {
   return (
-    <Card>
+    <Card style={styles.container}>
       <Card.Cover source={{ uri: img }} />
       <Card.Title title={title} subtitle={description} />
       <Card.Content>

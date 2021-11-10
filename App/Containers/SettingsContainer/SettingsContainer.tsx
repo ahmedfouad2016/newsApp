@@ -1,7 +1,7 @@
 import React, { ReactElement, useState } from 'react';
 import { translate, getLocal } from 'I18n';
 import { View } from 'react-native';
-import { Switch, Subheading } from 'react-native-paper';
+import { Switch, Subheading, useTheme } from 'react-native-paper';
 import RNRestart from 'react-native-restart';
 import AsyncStorage from '@react-native-community/async-storage';
 import Styles from './Settings.style';
@@ -10,6 +10,7 @@ export default function Settings(): ReactElement {
   const LOCAL = getLocal();
   const [langEn, setLangEn] = useState(LOCAL.toString() === 'en');
   const [langSp, setLangSp] = useState(LOCAL.toString() === 'sp');
+  const { colors } = useTheme();
 
   const onValueChange = async () => {
     if (LOCAL === 'en') {
@@ -27,7 +28,7 @@ export default function Settings(): ReactElement {
   };
 
   return (
-    <View style={Styles.container}>
+    <View style={[Styles.container, { backgroundColor: colors.background }]}>
       <View style={Styles.row}>
         <Subheading> {translate('lang')} </Subheading>
         <Switch value={langEn} onValueChange={() => onValueChange()} />

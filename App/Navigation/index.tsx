@@ -3,13 +3,11 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import HomeStack from './HomeStack';
 import SettingsStack from './SettingsStack';
-import { getLocal, translate } from 'I18n';
+import { translate } from 'I18n';
 
 const Tab = createMaterialBottomTabNavigator();
 
 export default function AppContainer(): ReactElement {
-  console.log('llll', getLocal());
-
   return (
     <NavigationContainer>
       <Tab.Navigator>

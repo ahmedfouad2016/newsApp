@@ -1,5 +1,5 @@
 import React, { ReactElement, useEffect, useState, useCallback } from 'react';
-import { FlatList, TouchableOpacity } from 'react-native';
+import { FlatList, TouchableOpacity, View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
@@ -7,7 +7,8 @@ import { getTopHeadLinesAction } from 'Store/Actions/NewsActions';
 import NewsCard from 'Components/NewsCard/NewsCard';
 import { RootState } from 'Store';
 import Styles from './News.style';
-import { Divider } from 'react-native-paper';
+import { Divider, useTheme, Searchbar } from 'react-native-paper';
+import { translate } from 'I18n';
 
 interface INewsProps {
   navigation: NativeStackNavigationProp<any>;
@@ -16,6 +17,8 @@ interface INewsProps {
 export default function News({ navigation }: INewsProps): ReactElement {
   const dispatch = useDispatch();
   const [refresh, setRefresh] = useState(false);
+  const { colors } = useTheme();
+  const [searchQuery, setSearchQuery] = useState('');
 
   const { articles } = useSelector((state: RootState) => state.news);
   const { page } = useSelector((state: RootState) => state.news);
@@ -27,9 +30,9 @@ export default function News({ navigation }: INewsProps): ReactElement {
 
   const onRefresh = useCallback(async () => {
     setRefresh(true);
-    await dispatch(getTopHeadLinesAction(1, true));
+    await dispatch(getTopHeadLinesAction(1, true, searchQuery));
     setRefresh(false);
-  }, [dispatch]);
+  }, [dispatch, searchQuery]);
 
   const onLoadMore = useCallback(() => {
     if (articles?.length < totalResults) {
@@ -37,9 +40,17 @@ export default function News({ navigation }: INewsProps): ReactElement {
     }
   }, [page, dispatch, articles, totalResults]);
 
+  const onChangeSearch = useCallback(query => {
+    setSearchQuery(query);
+  }, []);
+
+  const onSearch = useCallback(async () => {
+    dispatch(getTopHeadLinesAction(1, false, searchQuery));
+  }, [dispatch, searchQuery]);
+
   return (
     <FlatList
-      style={Styles.container}
+      style={[Styles.container, { backgroundColor: colors.background }]}
       data={articles}
       refreshing={refresh}
       onRefresh={onRefresh}
@@ -54,8 +65,17 @@ export default function News({ navigation }: INewsProps): ReactElement {
         </TouchableOpacity>
       )}
       ItemSeparatorComponent={() => <Divider style={Styles.separator} />}
+      ListHeaderComponent={() => (
+        <View style={Styles.search}>
+          <Searchbar
+            placeholder={translate('search')}
+            onChangeText={onChangeSearch}
+            value={searchQuery}
+            onIconPress={onSearch}
+          />
+        </View>
+      )}
       onEndReached={onLoadMore}
-      onEndReachedThreshold={0.5}
     />
   );
 }
