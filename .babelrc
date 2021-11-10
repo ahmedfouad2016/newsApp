@@ -4,8 +4,8 @@
         "module-resolver",
         {
           "cwd": "babelrc",
-          "root": ["."],
-          "extensions": [".js", ".tsx"],
+          "root": ["./App"],
+          "extensions": [".js", ".tsx", ".ts"],
           "alias": {
             "Components": "./App/Components",
             "Containers": "./App/Containers",
@@ -14,7 +14,7 @@
             "Store": "./App/Store",
             "Services": "./App/Services",
             "Utils": "./App/Utils",
-            "Constants": "./App/Constants",
+            "Constants": "./App/Constants"
           }
         }
       ]
