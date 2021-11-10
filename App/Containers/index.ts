@@ -1,4 +1,4 @@
-import HomeContainer from './HomeContainer';
+import NewsContainer from './NewsContainer';
 import SettingsContainer from './SettingsContainer';
 
-export { HomeContainer, SettingsContainer };
+export { NewsContainer, SettingsContainer };
